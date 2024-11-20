@@ -1,0 +1,4 @@
+---
+roles:
+  - name: prometheus.prometheus.prometheus
+  - name: grafana.grafana.grafana

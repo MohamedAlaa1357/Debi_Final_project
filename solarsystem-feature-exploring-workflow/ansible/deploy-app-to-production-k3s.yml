@@ -1,0 +1,24 @@
+---
+- hosts: k3s
+  become: yes
+  tasks:
+
+    - name: Transfer Kubernetes YAML templates from the runner to EC2
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: '0644'
+      loop:
+        - { src: "/home/runner/work/solarsystem/solarsystem/kubernetes/deployment.yaml", dest: "/home/ubuntu/deployment.yaml" }
+        - { src: "/home/runner/work/solarsystem/solarsystem/kubernetes/service.yaml", dest: "/home/ubuntu/service.yaml" }
+        - { src: "/home/runner/work/solarsystem/solarsystem/kubernetes/namespace.yaml", dest: "/home/ubuntu/namespace.yaml" }
+
+
+    - name: Apply Kubernetes service YAML
+      command: kubectl apply -f /home/ubuntu/namespace.yaml
+
+    - name: Apply Kubernetes deployment YAML
+      command: kubectl apply -f /home/ubuntu/deployment.yaml
+
+    - name: Apply Kubernetes service YAML
+      command: kubectl apply -f /home/ubuntu/service.yaml
