@@ -1,4 +1,3 @@
-
 # CI/CD Pipeline for Node.js Application
 
 This project implements a comprehensive CI/CD pipeline for a Node.js application using GitHub Actions.
